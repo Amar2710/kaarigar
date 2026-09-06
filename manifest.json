@@ -1,0 +1,37 @@
+{
+  "name": "KaariGar — Hire Local Experts",
+  "short_name": "KaariGar",
+  "description": "Find and hire trusted local workers near you",
+  "start_url": "/kaarigar/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1347CC",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231347CC'/%3E%3Cpath d='M256 80L80 220h80v212h80v-120h80v120h80V220h80L256 80z' fill='white'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231347CC'/%3E%3Cpath d='M256 80L80 220h80v212h80v-120h80v120h80V220h80L256 80z' fill='white'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["utilities", "lifestyle"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Search Workers",
+      "short_name": "Search",
+      "url": "/kaarigar/?page=search"
+    },
+    {
+      "name": "Join as Worker",
+      "short_name": "Join",
+      "url": "/kaarigar/?page=register"
+    }
+  ]
+}
