@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1347CC">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="KaariGar">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231347CC'/%3E%3Cpath d='M32 12L10 30h7v18h10V36h10v12h10V30h7L32 12z' fill='white'/%3E%3C/svg%3E">
+<title>KaariGar — Hire Local Experts</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#1347CC;--p2:#0f3aad;--p3:#EEF3FF;
+  --bg:#F4F6FB;--white:#fff;--text:#0D1117;--text2:#5A6478;--text3:#9BA3B4;
+  --border:#E4E8F0;--green:#0A8A4E;--green-bg:#E8F7EF;
+  --red:#C0392B;--amber:#B45309;--amber-bg:#FEF3C7;
+  --shadow:0 1px 3px rgba(13,17,23,0.06);
+  --shadow2:0 4px 16px rgba(13,17,23,0.10);
+  --shadow3:0 8px 32px rgba(13,17,23,0.12);
+  --r:12px;--r2:16px;--r3:20px;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.page{display:none;min-height:100vh}
+.page.show{display:block}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:500;height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:8px;box-shadow:var(--shadow)}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
+.logo-mark{width:34px;height:34px;background:var(--p);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.logo-text{font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.5px}
+.logo-text b{color:var(--p)}
+.nav-loc{display:flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 9px;cursor:pointer;max-width:120px;min-width:0}
+.nav-loc-txt{font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-r{margin-left:auto;display:flex;gap:5px;align-items:center}
+.nbtn{border:1.5px solid var(--border);background:var(--white);color:var(--text);font-size:12px;font-weight:600;padding:6px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.nbtn.solid{background:var(--p);border-color:var(--p);color:#fff}
+.lbtn{border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:11px;font-weight:600;padding:4px 8px;border-radius:20px;cursor:pointer;font-family:inherit}
+.lbtn.on{background:var(--p);border-color:var(--p);color:#fff}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--white);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
+.bi{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;cursor:pointer;background:none;border:none;font-family:inherit}
+.bi-lbl{font-size:10px;font-weight:600;color:var(--text3)}
+.bi.on .bi-lbl{color:var(--p)}
+
+/* HOME */
+.home-hero{background:var(--p);padding:22px 16px 26px}
+.hero-title{font-size:clamp(20px,5vw,26px);font-weight:800;color:#fff;line-height:1.25;margin-bottom:6px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:18px}
+.h-search{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow3)}
+.hs-row{display:flex;align-items:center;padding:0 14px;border-bottom:1px solid var(--border)}
+.hs-inp{flex:1;border:none;outline:none;font-size:14px;color:var(--text);padding:13px 0 13px 10px;background:transparent;font-family:inherit}
+.hs-inp::placeholder{color:var(--text3)}
+.hs-btn{margin:10px;background:var(--p);border:none;color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:9px;cursor:pointer;width:calc(100% - 20px);display:block;font-family:inherit}
+.stats-row{display:flex;background:var(--white);border-bottom:1px solid var(--border)}
+.sst{flex:1;padding:12px 8px;text-align:center;border-right:1px solid var(--border)}
+.sst:last-child{border-right:none}
+.sst-n{font-size:18px;font-weight:800;color:var(--p)}
+.sst-l{font-size:11px;color:var(--text2);margin-top:2px}
+.sec{padding:18px 16px}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-size:15px;font-weight:700;color:var(--text)}
+.sec-lnk{font-size:13px;color:var(--p);font-weight:600;background:none;border:none;cursor:pointer;font-family:inherit}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.cat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:12px 6px 10px;text-align:center;cursor:pointer}
+.cat-ic{width:36px;height:36px;border-radius:9px;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.cat-nm{font-size:10px;font-weight:600;color:var(--text2);line-height:1.3}
+.cat-ct{font-size:9px;color:var(--text3);margin-top:1px}
+.w-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+.w-scroll::-webkit-scrollbar{display:none}
+.wc{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:14px;min-width:148px;max-width:148px;cursor:pointer;flex-shrink:0}
+.wc-av{width:48px;height:48px;border-radius:50%;background:var(--p3);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;position:relative;border:2px solid var(--border)}
+.wc-dot{position:absolute;bottom:1px;right:1px;width:11px;height:11px;background:var(--green);border-radius:50%;border:2px solid #fff}
+.wc-name{font-size:13px;font-weight:700;color:var(--text);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-skill{font-size:11px;color:var(--p);text-align:center;font-weight:600;margin-top:2px}
+.wc-loc{font-size:10px;color:var(--text3);text-align:center;margin-top:2px}
+.how-bg{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 16px}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:14px}
+.how-item{text-align:center}
+.how-num{width:34px;height:34px;background:var(--p);border-radius:50%;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.how-t{font-size:12px;font-weight:700;color:var(--text)}
+.how-s{font-size:11px;color:var(--text2);margin-top:3px}
+.j-banner{margin:18px 16px;background:linear-gradient(135deg,#0D1117,#1a2535);border-radius:var(--r2);padding:18px;color:#fff}
+.j-banner h3{font-size:15px;font-weight:700;margin-bottom:5px}
+.j-banner p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:14px}
+.j-btn{width:100%;background:var(--p);border:none;color:#fff;font-size:13px;font-weight:700;padding:12px;border-radius:9px;cursor:pointer;font-family:inherit}
+
+/* SEARCH */
+.sp-sticky{position:sticky;top:56px;z-index:100;background:var(--white);border-bottom:1px solid var(--border)}
+.sp-bar{display:flex;align-items:center;padding:10px 16px;gap:10px;border-bottom:1px solid var(--border)}
+.sp-inp-wrap{flex:1;display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;overflow:hidden}
+.sp-inp{flex:1;border:none;outline:none;font-size:14px;color:var(--text);padding:10px 0;background:transparent;font-family:inherit}
+.sp-inp::placeholder{color:var(--text3)}
+.sp-cats{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;-ms-overflow-style:none;scrollbar-width:none}
+.sp-cats::-webkit-scrollbar{display:none}
+.sp-cat{background:var(--white);border:1.5px solid var(--border);border-radius:20px;color:var(--text2);font-size:12px;font-weight:600;padding:6px 12px;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:inherit}
+.sp-cat.on{background:var(--p);border-color:var(--p);color:#fff}
+.sort-bar{display:flex;gap:6px;padding:8px 16px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;border-bottom:1px solid var(--border)}
+.sort-bar::-webkit-scrollbar{display:none}
+.sort-chip{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text2);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:inherit}
+.sort-chip.on{background:var(--p3);border-color:rgba(19,71,204,.25);color:var(--p)}
+.sp-res{padding:14px 16px}
+.sp-rc{font-size:13px;color:var(--text2);margin-bottom:12px;font-weight:500}
+.wl{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:14px;margin-bottom:9px;display:flex;gap:12px;cursor:pointer}
+.wl-av{width:56px;height:56px;border-radius:var(--r);background:var(--p3);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;border:1px solid var(--border)}
+.wl-online{position:absolute;bottom:-2px;right:-2px;width:13px;height:13px;background:var(--green);border-radius:50%;border:2px solid #fff}
+.wl-info{flex:1;min-width:0}
+.wl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.wl-name{font-size:15px;font-weight:700;color:var(--text)}
+.wl-rate-txt{font-size:13px;font-weight:700;color:var(--green);white-space:nowrap}
+.wl-skill{font-size:12px;color:var(--p);font-weight:600;margin-top:2px}
+.wl-loc{font-size:11px;color:var(--text3);margin-top:3px}
+.wl-bot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.b-top{background:var(--amber-bg);color:var(--amber)}
+.b-new{background:var(--p3);color:var(--p)}
+
+/* PROFILE */
+.prof-hdr{background:var(--p);padding:20px 16px;margin-top:56px;color:#fff}
+.back-btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:rgba(255,255,255,.15);border:none;border-radius:8px;cursor:pointer;margin-bottom:14px;color:#fff;font-size:22px;font-family:inherit}
+.prof-top{display:flex;align-items:flex-start;gap:14px}
+.prof-av{width:68px;height:68px;border-radius:var(--r2);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.25);flex-shrink:0;font-size:28px}
+.prof-nm{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:3px}
+.prof-sk{font-size:13px;font-weight:600;opacity:.9;margin-bottom:4px}
+.prof-loc{font-size:12px;opacity:.7}
+.prof-stats{display:flex;background:rgba(0,0,0,.12);border-radius:var(--r);margin-top:16px;overflow:hidden}
+.ps{flex:1;text-align:center;padding:12px 4px;border-right:1px solid rgba(255,255,255,.1)}
+.ps:last-child{border-right:none}
+.ps-n{font-size:18px;font-weight:800}
+.ps-l{font-size:10px;opacity:.6;margin-top:2px}
+.prof-body{padding:0 16px 120px}
+.psec{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-top:12px}
+.psec-t{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px}
+.stag{background:var(--p3);border:1px solid rgba(19,71,204,.12);color:var(--p);font-size:12px;font-weight:600;padding:5px 11px;border-radius:6px;display:inline-block;margin:3px}
+.avail-row{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.avd{text-align:center}
+.avd-l{font-size:9px;color:var(--text3);margin-bottom:4px;font-weight:600;text-transform:uppercase}
+.avd-dot{width:28px;height:28px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.av-y{background:var(--green-bg);color:var(--green)}
+.av-n{background:#FEE2E2;color:var(--red)}
+.rev-item{padding:12px 0;border-bottom:1px solid var(--border)}
+.rev-item:last-child{border-bottom:none}
+.book-bar{position:fixed;bottom:56px;left:0;right:0;background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:200}
+.bb-rate{font-size:20px;font-weight:800;color:var(--p)}
+.bb-lbl{font-size:11px;color:var(--text3)}
+.bb-chat{background:var(--white);border:1.5px solid var(--border);color:var(--text);font-size:13px;font-weight:600;padding:12px 14px;border-radius:var(--r);cursor:pointer;font-family:inherit}
+.bb-book{flex:1;background:var(--p);border:none;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:var(--r);cursor:pointer;font-family:inherit}
+
+/* REGISTER */
+.reg-wrap{padding:18px 16px 100px;margin-top:56px}
+.type-cards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.tc{background:var(--white);border:2px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center;cursor:pointer}
+.tc.on{border-color:var(--p);background:var(--p3)}
+.tc-ic{font-size:28px;margin-bottom:7px}
+.tc-nm{font-size:14px;font-weight:700;color:var(--text)}
+.tc-sub{font-size:11px;color:var(--text2);margin-top:3px}
+.fcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:10px}
+.fcard-t{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid var(--border)}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:5px}
+.finput{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;outline:none;color:var(--text);font-size:14px;padding:11px 13px;font-family:inherit}
+.finput:focus{border-color:var(--p);background:var(--white)}
+.finput::placeholder{color:var(--text3)}
+select.finput{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6478' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:var(--bg);padding-right:36px}
+select.finput:focus{background-color:var(--white)}
+textarea.finput{resize:none;line-height:1.6}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.chip-wrap{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--bg);border:1.5px solid var(--border);border-radius:7px;color:var(--text2);font-size:12px;font-weight:600;padding:6px 12px;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--p3);border-color:rgba(19,71,204,.25);color:var(--p)}
+.sub-btn{width:100%;background:var(--p);border:none;color:#fff;font-size:15px;font-weight:700;padding:15px;border-radius:var(--r2);cursor:pointer;font-family:inherit}
+
+/* ACCOUNT */
+.not-logged{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;min-height:60vh}
+.dash-hero{background:var(--p);padding:20px 16px;color:#fff}
+.dash-av{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;font-weight:700;color:#fff;cursor:pointer}
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.dstat{background:rgba(255,255,255,.12);border-radius:10px;padding:10px;text-align:center}
+.dstat-n{font-size:20px;font-weight:800}
+.dstat-l{font-size:10px;opacity:.7;margin-top:2px}
+.dash-sec{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:12px;overflow:hidden}
+.dash-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.dash-sec-t{font-size:14px;font-weight:700;color:var(--text)}
+.dash-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer}
+.dash-item:last-child{border-bottom:none}
+.dash-item-ic{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.dash-item-t{font-size:13px;font-weight:600;color:var(--text)}
+.dash-item-s{font-size:12px;color:var(--text2);margin-top:2px}
+.status-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.s-pending{background:#FEF3C7;color:#92400e}
+.s-confirmed{background:#D1FAE5;color:#065f46}
+.s-done{background:#DBEAFE;color:#1e429f}
+.s-cancelled{background:#FEE2E2;color:#991b1b}
+.logout-btn{width:100%;background:none;border:1.5px solid var(--border);color:var(--red);font-size:14px;font-weight:600;padding:13px;border-radius:var(--r);cursor:pointer;font-family:inherit;margin-top:10px}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(13,17,23,.45);z-index:999;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--white);border-radius:var(--r3) var(--r3) 0 0;padding:20px 18px;width:100%;max-width:500px;max-height:88vh;overflow-y:auto}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-ttl{font-size:17px;font-weight:700;color:var(--text)}
+.modal-close{background:var(--bg);border:none;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;color:var(--text2);font-weight:700;font-family:inherit}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.slot{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 6px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);line-height:1.4}
+.slot.on{background:var(--p3);border-color:var(--p);color:var(--p)}
+.conf-btn{width:100%;background:var(--p);border:none;color:#fff;font-size:15px;font-weight:600;padding:14px;border-radius:var(--r);cursor:pointer;font-family:inherit}
+.loc-chip{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text2);font-size:13px;font-weight:600;padding:8px 12px;cursor:pointer;display:inline-block;margin:4px}
+.loc-chip.on{background:var(--p3);border-color:var(--p);color:var(--p)}
+.auth-opt{display:flex;align-items:center;gap:13px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:13px;cursor:pointer;width:100%;margin-bottom:9px;text-align:left;font-family:inherit}
+.auth-opt-ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.auth-opt-t{font-size:14px;font-weight:700;color:var(--text)}
+.auth-opt-s{font-size:12px;color:var(--text2);margin-top:2px}
+.auth-skip{width:100%;background:none;border:none;color:var(--text3);font-size:13px;font-weight:600;padding:12px;cursor:pointer;display:block;text-align:center;margin-top:4px;font-family:inherit}
+.star-btn{background:none;border:none;font-size:28px;cursor:pointer;padding:2px;line-height:1}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:#0D1117;color:#fff;font-size:13px;font-weight:500;padding:11px 18px;border-radius:9px;opacity:0;transition:all .25s;pointer-events:none;z-index:9999;white-space:nowrap;box-shadow:var(--shadow3)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.pwa-banner{display:none;position:fixed;bottom:70px;left:12px;right:12px;background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:14px;box-shadow:var(--shadow3);z-index:998}
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo" onclick="go('home')">
+    <div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="white"/><rect x="9" y="14" width="6" height="8" rx="1" fill="#1347CC"/></svg></div>
+    <div class="logo-text">Kaari<b>Gar</b></div>
+  </div>
+  <div class="nav-loc" onclick="openLoc()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span class="nav-loc-txt" id="navLoc">Select City</span>
+  </div>
+  <div class="nav-r">
+    <div style="display:flex;gap:3px">
+      <button class="lbtn on" id="lbEn" onclick="setLang('en')">EN</button>
+      <button class="lbtn" id="lbHi" onclick="setLang('hi')">हि</button>
+    </div>
+    <button class="nbtn" onclick="go('register')">Join Free</button>
+    <button class="nbtn solid" onclick="go('search')">Hire Now</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page show" id="page-home" style="padding-top:56px">
+  <div class="home-hero">
+    <div class="hero-title" id="heroTitle">Find Trusted Local<br>Workers Near You</div>
+    <div class="hero-sub" id="heroSub">Cook, Electrician, Plumber & 50+ more</div>
+    <div class="h-search">
+      <div class="hs-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="hs-inp" id="homeQ" type="text" placeholder="Cook, Plumber, Electrician..." autocomplete="off">
+      </div>
+      <div class="hs-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input class="hs-inp" id="homeArea" type="text" placeholder="Area or city..." autocomplete="off">
+      </div>
+      <button class="hs-btn" onclick="doSearch()" id="searchBtn">Search Workers</button>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="sst"><div class="sst-n">12K+</div><div class="sst-l" id="statW">Workers</div></div>
+    <div class="sst"><div class="sst-n">50+</div><div class="sst-l" id="statC">Categories</div></div>
+    <div class="sst"><div class="sst-n">4.8★</div><div class="sst-l" id="statR">Avg Rating</div></div>
+  </div>
+  <div class="sec">
+    <div class="sec-hd"><div class="sec-title" id="browseTitle">Browse by Category</div><button class="sec-lnk" onclick="toggleCats()" id="catToggle">See all</button></div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+  <div class="sec" style="padding-top:0">
+    <div class="sec-hd"><div class="sec-title" id="topTitle">Top Rated Workers</div><button class="sec-lnk" onclick="go('search')">See all</button></div>
+    <div class="w-scroll" id="topWorkers"></div>
+  </div>
+  <div class="how-bg">
+    <div class="sec-title" id="howTitle">How KaariGar Works</div>
+    <div class="how-steps">
+      <div class="how-item"><div class="how-num">1</div><div class="how-t" id="h1t">Search</div><div class="how-s" id="h1s">Category & area select karo</div></div>
+      <div class="how-item"><div class="how-num">2</div><div class="how-t" id="h2t">Choose</div><div class="how-s" id="h2s">Profile & rating dekho</div></div>
+      <div class="how-item"><div class="how-num">3</div><div class="how-t" id="h3t">Book</div><div class="how-s" id="h3s">Date fix karo & hire karo</div></div>
+    </div>
+  </div>
+  <div class="j-banner">
+    <h3 id="bannerT">Are you a Worker? Join Free</h3>
+    <p id="bannerD">Create your profile, get hired near you. Zero commission.</p>
+    <button class="j-btn" onclick="go('register')" id="bannerB">Create Worker Profile — Free</button>
+  </div>
+  <div style="height:70px"></div>
+</div>
+
+<!-- SEARCH -->
+<div class="page" id="page-search" style="padding-top:56px">
+  <div class="sp-sticky">
+    <div class="sp-bar">
+      <div class="sp-inp-wrap">
+        <div style="padding:0 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <input class="sp-inp" id="spQ" type="text" placeholder="Search workers..." autocomplete="off" oninput="filterW()">
+      </div>
+      <button onclick="openLoc()" style="background:none;border:1.5px solid var(--border);border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:4px;font-family:inherit">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="spLocTxt">All</span>
+      </button>
+    </div>
+    <div class="sp-cats" id="spCats"></div>
+    <div class="sort-bar">
+      <button class="sort-chip on" onclick="setSort(this,'rating')">⭐ Top Rated</button>
+      <button class="sort-chip" onclick="setSort(this,'low')">💰 Price: Low</button>
+      <button class="sort-chip" onclick="setSort(this,'high')">💎 Price: High</button>
+      <button class="sort-chip" onclick="setSort(this,'jobs')">🔥 Most Hired</button>
+      <button class="sort-chip" onclick="setSort(this,'near')">📍 Nearest</button>
+    </div>
+  </div>
+  <div class="sp-res">
+    <div class="sp-rc" id="spRc"></div>
+    <div id="wList"></div>
+  </div>
+  <div style="height:70px"></div>
+</div>
+
+<!-- PROFILE -->
+<div class="page" id="page-profile" style="padding-top:0">
+  <div class="prof-hdr">
+    <button class="back-btn" onclick="go(prevPg)">&#8249;</button>
+    <div class="prof-top">
+      <div class="prof-av" id="pAv">👤</div>
+      <div>
+        <div class="prof-nm" id="pNm"></div>
+        <div class="prof-sk" id="pSk"></div>
+        <div class="prof-loc" id="pLc"></div>
+      </div>
+    </div>
+    <div class="prof-stats">
+      <div class="ps"><div class="ps-n" id="pRt">—</div><div class="ps-l">Rating</div></div>
+      <div class="ps"><div class="ps-n" id="pJb">—</div><div class="ps-l">Jobs</div></div>
+      <div class="ps"><div class="ps-n" id="pEx">—</div><div class="ps-l">Exp</div></div>
+    </div>
+  </div>
+  <div class="prof-body">
+    <div class="psec"><div class="psec-t">About</div><div id="pAb" style="font-size:13px;color:var(--text2);line-height:1.75"></div></div>
+    <div class="psec"><div class="psec-t">Skills</div><div id="pSks"></div></div>
+    <div class="psec"><div class="psec-t">Availability</div><div class="avail-row" id="pAvail"></div></div>
+    <div class="psec"><div class="psec-t">Reviews</div><div id="pRevs"></div></div>
+  </div>
+  <div class="book-bar">
+    <div style="flex:1"><div class="bb-rate" id="pRate">—</div><div class="bb-lbl">per day</div></div>
+    <button class="bb-chat" onclick="openChat()">💬 Chat</button>
+    <button class="bb-book" onclick="bookNow()">Book Now</button>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="page" id="page-register" style="padding-top:56px">
+  <div class="reg-wrap">
+    <div style="margin-bottom:20px"><h2 style="font-size:22px;font-weight:800;margin-bottom:5px">Join KaariGar</h2><p style="font-size:14px;color:var(--text2)">Free mein profile banao — 2 minute mein</p></div>
+    <div style="background:var(--p3);border:1px solid rgba(19,71,204,.15);border-radius:var(--r);padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--p)">ℹ️ Submit karne se pehle login zaroori hai</div>
+    <div class="type-cards">
+      <div class="tc on" id="tcW" onclick="setRT('worker')"><div class="tc-ic">👷</div><div class="tc-nm">Worker</div><div class="tc-sub">Kaam dhundhna hai</div></div>
+      <div class="tc" id="tcC" onclick="setRT('customer')"><div class="tc-ic">🏠</div><div class="tc-nm">Customer</div><div class="tc-sub">Worker hire karna hai</div></div>
+    </div>
+    <div class="fcard">
+      <div class="fcard-t">Basic Info</div>
+      <div class="field"><label>Full Name *</label><input class="finput" id="regName" type="text" placeholder="Apna naam"></div>
+      <div class="frow">
+        <div class="field"><label>Phone *</label><input class="finput" id="regPhone" type="tel" placeholder="10-digit" maxlength="10"></div>
+        <div class="field"><label>Age</label><input class="finput" id="regAge" type="number" placeholder="25" min="18" max="70"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>City *</label><input class="finput" id="regCity" type="text" placeholder="Delhi..."></div>
+        <div class="field"><label>Area *</label><input class="finput" id="regArea" type="text" placeholder="Colony..."></div>
+      </div>
+    </div>
+    <div id="wFields">
+      <div class="fcard">
+        <div class="fcard-t">Work Details</div>
+        <div class="field"><label>Category *</label><select class="finput" id="regCat" onchange="loadSubCat()"><option value="">Select category</option></select></div>
+        <div class="field"><label>Skills *</label><div class="chip-wrap" id="regSkills"><div style="font-size:12px;color:var(--text3)">Select category first</div></div></div>
+        <div class="frow">
+          <div class="field"><label>Experience *</label><select class="finput" id="regExp"><option>Fresher</option><option>1-3 years</option><option>3-5 years</option><option>5+ years</option></select></div>
+          <div class="field"><label>Rate/Day (₹) *</label><input class="finput" id="regRate" type="number" placeholder="500" min="100"></div>
+        </div>
+        <div class="field"><label>About</label><textarea class="finput" id="regAbout" rows="3" placeholder="Apne kaam ke baare mein..."></textarea></div>
+        <div class="field"><label>Available Days</label>
+          <div class="chip-wrap">
+            <button class="chip on" onclick="this.classList.toggle('on')">Mon</button>
+            <button class="chip on" onclick="this.classList.toggle('on')">Tue</button>
+            <button class="chip on" onclick="this.classList.toggle('on')">Wed</button>
+            <button class="chip on" onclick="this.classList.toggle('on')">Thu</button>
+            <button class="chip on" onclick="this.classList.toggle('on')">Fri</button>
+            <button class="chip on" onclick="this.classList.toggle('on')">Sat</button>
+            <button class="chip" onclick="this.classList.toggle('on')">Sun</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="sub-btn" onclick="submitReg()">Create Profile — Free</button>
+  </div>
+</div>
+
+<!-- ACCOUNT -->
+<div class="page" id="page-account" style="padding-top:56px">
+  <div id="dashNotLogged">
+    <div class="not-logged">
+      <div style="font-size:56px;margin-bottom:14px">👤</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px">Login Karo</div>
+      <div style="font-size:14px;color:var(--text2);margin-bottom:24px">Bookings aur profile dekhne ke liye</div>
+      <button class="sub-btn" style="max-width:260px" onclick="requireAuth('account')">Sign In / Sign Up</button>
+    </div>
+  </div>
+  <div id="dashLogged" style="display:none">
+    <div class="dash-hero">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+        <div class="dash-av" id="dashAv" onclick="uploadProfileImg()">U</div>
+        <div style="flex:1">
+          <div style="font-size:18px;font-weight:800;letter-spacing:-.3px" id="dashName">User</div>
+          <div style="font-size:12px;opacity:.75;margin-top:2px" id="dashRole">Customer</div>
+        </div>
+        <button onclick="go('register')" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:12px;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit">Edit</button>
+      </div>
+      <div class="dash-stats">
+        <div class="dstat"><div class="dstat-n" id="dashBkCnt">0</div><div class="dstat-l">Bookings</div></div>
+        <div class="dstat"><div class="dstat-n" id="dashRating">—</div><div class="dstat-l">Rating</div></div>
+        <div class="dstat"><div class="dstat-n" id="dashDone">0</div><div class="dstat-l">Done</div></div>
+      </div>
+    </div>
+    <div style="padding:14px 16px 100px">
+      <div class="dash-sec">
+        <div class="dash-sec-hd"><div class="dash-sec-t">Recent Bookings</div></div>
+        <div id="dashBkList"></div>
+      </div>
+      <div class="dash-sec">
+        <div class="dash-sec-hd"><div class="dash-sec-t">Quick Actions</div></div>
+        <div class="dash-item" onclick="go('search')"><div class="dash-item-ic" style="background:var(--p3)">🔍</div><div><div class="dash-item-t">Find Workers</div><div class="dash-item-s">Search near you</div></div></div>
+        <div class="dash-item" onclick="go('register')"><div class="dash-item-ic" style="background:var(--green-bg)">👷</div><div><div class="dash-item-t">Register as Worker</div><div class="dash-item-s">Start earning</div></div></div>
+        <div class="dash-item" onclick="document.getElementById('helpModal').classList.add('show')"><div class="dash-item-ic" style="background:#EFF6FF">❓</div><div><div class="dash-item-t">Help & Support</div><div class="dash-item-s">Koi problem?</div></div></div>
+        <div class="dash-item" onclick="document.getElementById('privacyModal').classList.add('show')"><div class="dash-item-ic" style="background:var(--green-bg)">🔒</div><div><div class="dash-item-t">Privacy Policy</div><div class="dash-item-s">Data safe hai</div></div></div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+      <div style="background:var(--white);border:1px solid #FECACA;border-radius:var(--r2);padding:16px;margin-top:10px">
+        <div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Danger Zone</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Ye action permanent hai</div>
+        <button onclick="document.getElementById('deleteModal').classList.add('show')" style="width:100%;background:#FEF2F2;border:1.5px solid #FECACA;color:var(--red);font-size:13px;font-weight:600;padding:10px;border-radius:9px;cursor:pointer;font-family:inherit">🗑️ Delete Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="bi on" id="bi-home" onclick="go('home')">🏠<span class="bi-lbl">Home</span></button>
+  <button class="bi" id="bi-search" onclick="go('search')">🔍<span class="bi-lbl">Search</span></button>
+  <button class="bi" id="bi-register" onclick="go('register')">➕<span class="bi-lbl" id="joinLbl">Join</span></button>
+  <button class="bi" id="bi-account" onclick="go('account');loadDash()">👤<span class="bi-lbl">Account</span></button>
+</nav>
+
+<!-- LOCATION MODAL -->
+<div class="overlay" id="locModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Select Location</div><button class="modal-close" onclick="document.getElementById('locModal').classList.remove('show')">✕</button></div>
+    <div onclick="detectLoc()" style="display:flex;align-items:center;gap:12px;background:var(--p3);border:1.5px solid rgba(19,71,204,.15);border-radius:var(--r);padding:13px;cursor:pointer;margin-bottom:14px">
+      <div style="width:40px;height:40px;background:var(--p);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎯</div>
+      <div><div style="font-size:14px;font-weight:700;color:var(--p)">Current Location</div><div style="font-size:11px;color:var(--text2)">GPS se detect</div></div>
+    </div>
+    <div class="field"><label>Search city</label><input class="finput" type="text" id="locQ" placeholder="Delhi, Mumbai..." oninput="renderLoc(this.value)" autocomplete="off"></div>
+    <div id="locPop" style="margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="overlay" id="authModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:40px;margin-bottom:10px">👋</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px" id="authTtl">Sign in</div>
+      <div style="font-size:13px;color:var(--text2)" id="authSub">Login karo to continue</div>
+    </div>
+    <button class="auth-opt" onclick="googleLogin()">
+      <div class="auth-opt-ic" style="background:#FEF2F2">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      </div>
+      <div><div class="auth-opt-t">Continue with Google</div><div class="auth-opt-s">Gmail se ek click mein</div></div>
+    </button>
+    <button class="auth-opt" onclick="showPhoneModal()">
+      <div class="auth-opt-ic" style="background:#E8F5E9">📱</div>
+      <div><div class="auth-opt-t">Continue with Phone</div><div class="auth-opt-s">OTP — 30 seconds mein</div></div>
+    </button>
+    <button class="auth-skip" onclick="closeAuth()">Explore first, sign in later →</button>
+  </div>
+</div>
+
+<!-- PHONE MODAL -->
+<div class="overlay" id="phoneModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Phone Login</div><button class="modal-close" onclick="document.getElementById('phoneModal').classList.remove('show')">✕</button></div>
+    <div id="recaptcha-container"></div>
+    <div id="phoneStep">
+      <div class="field"><label>Phone Number</label>
+        <div style="display:flex;gap:8px"><div style="background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:11px 13px;font-size:14px;font-weight:600;color:var(--text2)">+91</div><input class="finput" type="tel" id="phoneInput" placeholder="10-digit" maxlength="10" style="flex:1"></div>
+      </div>
+      <button class="sub-btn" onclick="sendOTP()">Send OTP</button>
+    </div>
+    <div id="otpStep" style="display:none">
+      <div style="text-align:center;font-size:13px;color:var(--text2);margin-bottom:14px">OTP bheja gaya hai</div>
+      <div class="field"><label>Enter OTP</label><input class="finput" type="number" id="otpInput" placeholder="6-digit OTP" style="text-align:center;font-size:20px;font-weight:700;letter-spacing:8px"></div>
+      <button class="sub-btn" onclick="verifyOTP()">Verify OTP</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="overlay" id="bookModal" onclick="if(event.target===this)closeBook()">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Book Worker</div><button class="modal-close" onclick="closeBook()">✕</button></div>
+    <div style="display:flex;align-items:center;gap:12px;background:var(--p3);border-radius:var(--r);padding:12px 14px;margin-bottom:16px">
+      <div style="width:42px;height:42px;background:var(--p);border-radius:10px;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0">👷</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--text)" id="bkWName">Worker</div><div style="font-size:12px;color:var(--p);font-weight:600" id="bkWSkill">Service</div></div>
+      <div style="font-size:15px;font-weight:800;color:var(--green)" id="bkWRate">₹500</div>
+    </div>
+    <div class="field"><label>Select Date *</label><input class="finput" type="date" id="bookDate"></div>
+    <div class="field"><label>Time Slot</label>
+      <div class="slots">
+        <div class="slot on" onclick="selSlot(this)">Morning<br><small style="font-size:10px;font-weight:400">8am–12pm</small></div>
+        <div class="slot" onclick="selSlot(this)">Afternoon<br><small style="font-size:10px;font-weight:400">12pm–4pm</small></div>
+        <div class="slot" onclick="selSlot(this)">Evening<br><small style="font-size:10px;font-weight:400">4pm–8pm</small></div>
+        <div class="slot" onclick="selSlot(this)">Full Day<br><small style="font-size:10px;font-weight:400">8am–6pm</small></div>
+        <div class="slot" onclick="selSlot(this)">2 Days<br><small style="font-size:10px;font-weight:400">Back to back</small></div>
+        <div class="slot" onclick="selSlot(this)">Weekly<br><small style="font-size:10px;font-weight:400">Mon–Sat</small></div>
+      </div>
+    </div>
+    <div class="field"><label>Your Address *</label><input class="finput" type="text" id="bookAddr" placeholder="Full address with landmark"></div>
+    <div class="field"><label>Note (optional)</label><textarea class="finput" id="bookNote" rows="2" placeholder="Any requirements..."></textarea></div>
+    <button class="conf-btn" onclick="confirmBook()">Confirm Booking</button>
+  </div>
+</div>
+
+<!-- RESCHEDULE -->
+<div class="overlay" id="reschedModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Reschedule</div><button class="modal-close" onclick="document.getElementById('reschedModal').classList.remove('show')">✕</button></div>
+    <div class="field"><label>New Date *</label><input class="finput" type="date" id="reschedDate"></div>
+    <div class="field"><label>Time Slot</label>
+      <div class="slots" id="reschedSlots">
+        <div class="slot on" onclick="selRSlot(this)">Morning</div><div class="slot" onclick="selRSlot(this)">Afternoon</div>
+        <div class="slot" onclick="selRSlot(this)">Evening</div><div class="slot" onclick="selRSlot(this)">Full Day</div>
+        <div class="slot" onclick="selRSlot(this)">2 Days</div><div class="slot" onclick="selRSlot(this)">Weekly</div>
+      </div>
+    </div>
+    <button class="conf-btn" onclick="confirmReschedule()">Confirm Reschedule</button>
+  </div>
+</div>
+
+<!-- CANCEL -->
+<div class="overlay" id="cancelModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div style="text-align:center;padding:10px 0 20px">
+      <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+      <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px">Cancel Booking?</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:20px" id="cancelInfo">Booking cancel ho jaayegi</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button onclick="confirmCancel()" style="width:100%;background:var(--red);border:none;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;font-family:inherit">Haan, Cancel Karo</button>
+        <button onclick="document.getElementById('cancelModal').classList.remove('show')" style="width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-size:14px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;font-family:inherit">Nahi, Wapas Jao</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE -->
+<div class="overlay" id="deleteModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div style="text-align:center;padding:10px 0 20px">
+      <div style="font-size:40px;margin-bottom:12px">🗑️</div>
+      <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px">Delete Account?</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:20px">Ye permanent hai — undo nahi hoga!</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button onclick="deleteAccount()" style="width:100%;background:var(--red);border:none;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;font-family:inherit">Haan, Delete Karo</button>
+        <button onclick="document.getElementById('deleteModal').classList.remove('show')" style="width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-size:14px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;font-family:inherit">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div class="overlay" id="reviewModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Rate & Review</div><button class="modal-close" onclick="document.getElementById('reviewModal').classList.remove('show')">✕</button></div>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px">Kaam kaisa tha?</div>
+      <div style="display:flex;gap:4px;justify-content:center" id="starRow">
+        <button class="star-btn" onclick="setRating(1)">☆</button><button class="star-btn" onclick="setRating(2)">☆</button>
+        <button class="star-btn" onclick="setRating(3)">☆</button><button class="star-btn" onclick="setRating(4)">☆</button>
+        <button class="star-btn" onclick="setRating(5)">☆</button>
+      </div>
+      <div style="font-size:13px;color:var(--amber);font-weight:600;margin-top:8px;min-height:20px" id="ratingLbl"></div>
+    </div>
+    <div class="field"><label>Review</label><textarea class="finput" id="reviewTxt" rows="3" placeholder="Kaam kaisa tha..."></textarea></div>
+    <div class="field"><label>Aapka Naam</label><input class="finput" type="text" id="reviewerNm" placeholder="Naam"></div>
+    <button class="conf-btn" onclick="submitReview()">Submit Review</button>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="overlay" id="chatModal" onclick="if(event.target===this)closeChat()">
+  <div class="modal" style="height:85vh;display:flex;flex-direction:column;padding:0;border-radius:var(--r3) var(--r3) 0 0;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--white)">
+      <button onclick="closeChat()" style="background:var(--bg);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:inherit">‹</button>
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--p3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">👷</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--text)" id="chatWName">Worker</div><div style="font-size:11px;color:var(--green)">● Online</div></div>
+    </div>
+    <div id="chatMsgs" style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)"></div>
+    <div style="padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;background:var(--white);flex-shrink:0">
+      <input type="text" id="chatInp" placeholder="Message..." style="flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:20px;outline:none;font-size:14px;color:var(--text);padding:10px 14px;caret-color:var(--p);font-family:inherit" onkeydown="if(event.keyCode===13)sendMsg()">
+      <button onclick="sendMsg()" style="width:42px;height:42px;background:var(--p);border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="overlay" id="helpModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Help & Support</div><button class="modal-close" onclick="document.getElementById('helpModal').classList.remove('show')">✕</button></div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8">
+      <b style="color:var(--text)">📧 Email:</b> support@kaarigar.in<br><br>
+      <b style="color:var(--text)">📞 Phone:</b> 1800-000-0000 (Toll Free)<br><br>
+      <b style="color:var(--text)">Worker kaise hire karein?</b><br>Search → Profile → Book Now → Confirm<br><br>
+      <b style="color:var(--text)">Booking cancel kaise karein?</b><br>Account → Bookings → Cancel button
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div class="overlay" id="privacyModal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-ttl">Privacy Policy</div><button class="modal-close" onclick="document.getElementById('privacyModal').classList.remove('show')">✕</button></div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8">
+      <b style="color:var(--text)">Data Collection:</b> Naam, phone, location — sirf zaroori data.<br><br>
+      <b style="color:var(--text)">Data Usage:</b> Workers dhundhne ke liye. Kisi ko nahi bechte.<br><br>
+      <b style="color:var(--text)">Security:</b> Google Firebase pe secure servers.<br><br>
+      <b style="color:var(--text)">Contact:</b> support@kaarigar.in
+    </div>
+  </div>
+</div>
+
+<div class="pwa-banner" id="pwaBanner">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="width:44px;height:44px;background:var(--p);border-radius:10px;font-size:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🏠</div>
+    <div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--text)">KaariGar Install Karo</div><div style="font-size:12px;color:var(--text2)">Home screen pe add karo</div></div>
+    <button onclick="document.getElementById('pwaBanner').style.display='none'" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3)">✕</button>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <button onclick="installPWA()" style="flex:1;background:var(--p);border:none;color:#fff;font-size:13px;font-weight:700;padding:10px;border-radius:9px;cursor:pointer;font-family:inherit">Install</button>
+    <button onclick="document.getElementById('pwaBanner').style.display='none'" style="flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--text2);font-size:13px;font-weight:600;padding:10px;border-radius:9px;cursor:pointer;font-family:inherit">Baad Mein</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────
+var CATS=[
+  {nm:'Cook / Chef',ct:320,sk:['Home Cook','Party Cook','Tiffin','Chef','Baker']},
+  {nm:'Labour',ct:890,sk:['Construction','Loading','Brick Work','Plastering','Demolition']},
+  {nm:'Painter',ct:210,sk:['Wall Painting','POP Work','Texture','Waterproofing']},
+  {nm:'Carpenter',ct:175,sk:['Furniture','Door/Window','Repair','Polishing']},
+  {nm:'Electrician',ct:340,sk:['Wiring','MCB/Fuse','AC Install','Fan/Light','Inverter']},
+  {nm:'Plumber',ct:290,sk:['Pipe Fitting','Leakage Fix','Tank Install','Geyser']},
+  {nm:'Mechanic',ct:180,sk:['Car Repair','Bike Repair','AC Repair','Fridge']},
+  {nm:'Tailor',ct:150,sk:['Stitching','Alteration','Designer','Uniform']},
+  {nm:'Beautician',ct:200,sk:['Makeup','Hair Style','Mehendi','Waxing','Facial','Bridal']},
+  {nm:'House Help',ct:560,sk:['Cleaning','Cooking','Babysitting','Laundry']},
+  {nm:'Tutor',ct:430,sk:['Math','Science','English','Hindi','Computers','Music']},
+  {nm:'Driver',ct:310,sk:['Car Driver','Truck Driver','Auto','Delivery']},
+  {nm:'Gardener',ct:95,sk:['Plant Care','Lawn Mowing','Landscaping']},
+  {nm:'Security Guard',ct:140,sk:['Night Guard','Day Guard','Society','Office']},
+  {nm:'Packers & Movers',ct:88,sk:['Packing','Loading','Unloading','Moving']},
+  {nm:'Waiter',ct:120,sk:['Party Service','Restaurant','Event','Home Service']},
+  {nm:'Pet Care',ct:65,sk:['Dog Walker','Pet Grooming','Pet Sitting']},
+  {nm:'Photographer',ct:180,sk:['Wedding','Events','Product','Video','Editing']},
+  {nm:'Computer / IT',ct:220,sk:['Repair','Data Entry','Tally','Web Design']},
+  {nm:'Healthcare',ct:160,sk:['Nurse','Ward Boy','Physiotherapy','Patient Care']},
+  {nm:'Tile / Bathroom',ct:110,sk:['Tile Work','Bathroom Fitting','Marble']},
+  {nm:'AC / Appliance',ct:195,sk:['AC Service','AC Install','Washing Machine']},
+  {nm:'Fitness Trainer',ct:88,sk:['Personal Trainer','Yoga','Zumba','Gym']},
+  {nm:'Event / Music',ct:75,sk:['DJ','Sound System','Dhol','Band','Anchor']},
+  {nm:'Food Delivery',ct:250,sk:['Home Delivery','Tiffin','Grocery','Medicine']},
+  {nm:'Waterproofing',ct:70,sk:['Roof','Basement','Bathroom','Chemical']},
+  {nm:'Pest Control',ct:130,sk:['Cockroach','Termite','Mosquito','Rat']},
+  {nm:'Translator',ct:45,sk:['Hindi-English','Document','Legal','Medical']},
+  {nm:'Mobile Repair',ct:160,sk:['Screen Replace','Battery','Software','Laptop']},
+  {nm:'Interior / Decor',ct:92,sk:['Interior Design','Wallpaper','Curtains']},
+  {nm:'Babysitter',ct:175,sk:['Infant Care','Toddler','School Pick Drop']},
+  {nm:'Locksmith',ct:55,sk:['Lock Open','Key Duplicate','Safe Open']},
+  {nm:'Wedding Services',ct:110,sk:['Mehendi','Makeup','Decoration','Catering']},
+  {nm:'Civil / Mason',ct:200,sk:['RCC Work','Foundation','Brick Mason','Concrete']},
+  {nm:'Farm Worker',ct:85,sk:['Farming','Harvesting','Irrigation']},
+  {nm:'Swimming Trainer',ct:30,sk:['Beginners','Kids','Advanced','Lifeguard']},
+  {nm:'Equipment Operator',ct:60,sk:['JCB','Crane','Forklift','Excavator']},
+  {nm:'Entertainment',ct:50,sk:['Anchor','Comedy','Magic Show','Puppet']},
+  {nm:'Accountant',ct:95,sk:['Tally','GST Filing','Tax','Bookkeeping']},
+  {nm:'Laundry',ct:72,sk:['Washing','Ironing','Dry Cleaning']},
+  {nm:'Real Estate Helper',ct:40,sk:['Site Visit','Property Search','Rent Agreement']},
+  {nm:'Career Counselor',ct:35,sk:['College Admission','Resume','Interview Prep']},
+  {nm:'Travel Helper',ct:28,sk:['Visa Help','Ticket Booking','Tour Guide']},
+  {nm:'Wellness / Spa',ct:55,sk:['Massage','Spa','Aromatherapy']},
+  {nm:'Glass / Aluminium',ct:65,sk:['Window Fitting','Glass Work','Railing']},
+  {nm:'RO / Water Purifier',ct:88,sk:['RO Install','RO Service','Filter Change']},
+  {nm:'Printing / Design',ct:70,sk:['Flex Print','Visiting Card','Banner']},
+  {nm:'DTH / Cable',ct:55,sk:['DTH Install','DTH Repair','Cable Wiring']},
+  {nm:'Borewell / Motor',ct:45,sk:['Borewell Drilling','Pump Install']},
+  {nm:'Other / Custom',ct:300,sk:['Any Skill','Custom Work','Part-time']},
+];
+var CAT_ICONS=['🍳','🏗','🎨','🪚','⚡','🔩','🔧','✂️','💇','🧹','📚','🚗','🌿','🛡','📦','🍽','🐾','📷','🖥','🏥','🚿','❄️','🏋','🎵','🍕','💧','🧹','🌐','📱','🛋','👶','🔑','💐','📐','🌾','🏊','🚜','🎭','📊','👕','🏠','🎓','✈️','🧘','🪟','💧','🖨','📺','⛽','⚙️'];
+
+var WORKERS=[
+  {id:1,nm:'Ramesh Kumar',sk:'Cook / Chef',cat:'Cook / Chef',loc:'Lajpat Nagar, Delhi',rt:4.9,jb:230,ex:'5 yr',rate:600,dist:'1.2 km',ab:'5 saal se ghar aur party mein cooking karta hoon. North Indian, biryani sab. Hygiene ka poora dhyan.',sk2:['Home Cook','Party Cook','Biryani','North Indian'],av:[1,1,1,1,1,1,0],revs:[{nm:'Priya S.',rt:5,dt:'2 days ago',tx:'Bahut tasty! Sabne tarif ki.'},{nm:'Rahul M.',rt:5,dt:'1 week ago',tx:'Time pe aaye, clean kaam kiya.'}]},
+  {id:2,nm:'Suresh Verma',sk:'Electrician',cat:'Electrician',loc:'Dwarka, Delhi',rt:4.7,jb:180,ex:'8 yr',rate:500,dist:'2.8 km',ab:'8 saal ka certified electrician. Wiring, AC install, inverter. Emergency bhi available.',sk2:['Wiring','AC Install','Fan/Light','Inverter'],av:[1,1,1,1,1,1,1],revs:[{nm:'Amit G.',rt:5,dt:'3 days ago',tx:'Professional kaam! Highly recommend.'}]},
+  {id:3,nm:'Mohan Lal',sk:'Painter',cat:'Painter',loc:'Saket, Delhi',rt:4.8,jb:156,ex:'6 yr',rate:550,dist:'3.5 km',ab:'Wall painting, texture, POP — 6 saal. Clean finish.',sk2:['Wall Painting','Texture','POP Work','Waterproofing'],av:[1,1,1,1,1,0,0],revs:[{nm:'Neha R.',rt:5,dt:'1 week ago',tx:'Ghar naya lag raha hai!'}]},
+  {id:4,nm:'Kavita Sharma',sk:'Beautician',cat:'Beautician',loc:'Rohini, Delhi',rt:4.9,jb:310,ex:'4 yr',rate:400,dist:'4.1 km',ab:'Bridal makeup, hair, facial, mehendi specialist. Home service available.',sk2:['Bridal Makeup','Hair Style','Facial','Mehendi'],av:[1,1,1,1,1,1,1],revs:[{nm:'Sunita M.',rt:5,dt:'Yesterday',tx:'Shaadi pe makeup perfect!'}]},
+  {id:5,nm:'Raju Mistri',sk:'Plumber',cat:'Plumber',loc:'Janakpuri, Delhi',rt:4.6,jb:200,ex:'7 yr',rate:450,dist:'2.1 km',ab:'Pipe fitting, leakage, geyser — sab kaam. Emergency bhi.',sk2:['Pipe Fitting','Leakage Fix','Geyser','Tank Install'],av:[1,1,1,1,1,1,0],revs:[{nm:'Vikram P.',rt:5,dt:'3 days ago',tx:'Raat ko leakage fix ki!'}]},
+  {id:6,nm:'Sunita Devi',sk:'House Help',cat:'House Help',loc:'Vasant Kunj, Delhi',rt:4.8,jb:420,ex:'3 yr',rate:300,dist:'1.8 km',ab:'Safai, bartan, kapde, khana — sab. Trusted.',sk2:['Cleaning','Utensils','Sweeping','Laundry'],av:[1,1,1,1,1,1,0],revs:[{nm:'Anjali K.',rt:5,dt:'2 days ago',tx:'Best house help! Bharosemand.'}]},
+  {id:7,nm:'Arjun Singh',sk:'Carpenter',cat:'Carpenter',loc:'Mayur Vihar, Delhi',rt:4.7,jb:145,ex:'10 yr',rate:700,dist:'5.2 km',ab:'10 saal furniture aur interior. Wardrobe, kitchen cabinet.',sk2:['Furniture','Wardrobe','Kitchen Cabinet','Polish'],av:[1,0,1,0,1,1,0],revs:[{nm:'Rohit T.',rt:5,dt:'1 week ago',tx:'Wardrobe perfect!'}]},
+  {id:8,nm:'Priya Gupta',sk:'Tutor',cat:'Tutor',loc:'Pitampura, Delhi',rt:5.0,jb:89,ex:'2 yr',rate:250,dist:'0.9 km',ab:'Class 6-10 Maths & Science. Online aur offline dono.',sk2:['Math','Science','English','Exam Prep'],av:[1,1,1,1,1,0,0],revs:[{nm:'Rahul P.',rt:5,dt:'Yesterday',tx:'Beta bahut improve hua!'}]},
+];
+
+// ── STATE ──────────────────────────────────────────────
+var curCat='All', sortMode='rating', selCity=''; var isLoggedIn=false; window.isLoggedIn=false;
+var authAction='', prevPg='search', activeWorker=null;
+var cancelIdx=-1, reschedIdx=-1, reviewIdx=-1, selectedRating=0;
+var chatMsgs=[], curLang='en', showAllCats=false;
+
+// ── LANGUAGE ────────────────────────────────────────────
+var LANG={
+  en:{heroTitle:'Find Trusted Local<br>Workers Near You',heroSub:'Cook, Electrician, Plumber & 50+ more',searchBtn:'Search Workers',statW:'Workers',statC:'Categories',statR:'Avg Rating',browseTitle:'Browse by Category',topTitle:'Top Rated Workers',howTitle:'How KaariGar Works',h1t:'Search',h1s:'Category & area select karo',h2t:'Choose',h2s:'Profile & rating dekho',h3t:'Book',h3s:'Date fix karo & hire karo',bannerT:'Are you a Worker? Join Free',bannerD:'Create your profile, get hired near you. Zero commission.',bannerB:'Create Worker Profile — Free'},
+  hi:{heroTitle:'अपने पास के भरोसेमंद<br>कामगार खोजें',heroSub:'कुक, इलेक्ट्रीशियन, प्लंबर और 50+ से ज़्यादा',searchBtn:'कामगार खोजें',statW:'कामगार',statC:'श्रेणियां',statR:'औसत रेटिंग',browseTitle:'श्रेणी से खोजें',topTitle:'टॉप रेटेड कामगार',howTitle:'KaariGar कैसे काम करता है',h1t:'खोजें',h1s:'श्रेणी और क्षेत्र चुनें',h2t:'चुनें',h2s:'प्रोफ़ाइल देखें',h3t:'बुक करें',h3s:'तारीख तय करें',bannerT:'क्या आप कामगार हैं? फ्री जॉइन करें',bannerD:'प्रोफ़ाइल बनाएं, पास के लोगों से काम पाएं।',bannerB:'कामगार प्रोफ़ाइल बनाएं — फ्री'},
+};
+
+function setLang(lang){
+  curLang=lang;
+  localStorage.setItem('kg_lang',lang);
+  var e=document.getElementById('lbEn'), h=document.getElementById('lbHi');
+  if(e){e.style.background=lang==='en'?'var(--p)':'transparent';e.style.borderColor=lang==='en'?'var(--p)':'var(--border)';e.style.color=lang==='en'?'#fff':'var(--text2)';}
+  if(h){h.style.background=lang==='hi'?'var(--p)':'transparent';h.style.borderColor=lang==='hi'?'var(--p)':'var(--border)';h.style.color=lang==='hi'?'#fff':'var(--text2)';}
+  var L=LANG[lang]||LANG['en'];
+  var ids=['heroTitle','heroSub','searchBtn','statW','statC','statR','browseTitle','topTitle','howTitle','h1t','h1s','h2t','h2s','h3t','h3s','bannerT','bannerD','bannerB'];
+  for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&L[ids[i]])el.innerHTML=L[ids[i]];}
+}
+
+// ── NAVIGATION ─────────────────────────────────────────
+function go(p){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++) pages[i].classList.remove('show');
+  var pg=document.getElementById('page-'+p);
+  if(pg) pg.classList.add('show');
+  var btns=document.querySelectorAll('.bi');
+  for(var j=0;j<btns.length;j++) btns[j].classList.remove('on');
+  var nb=document.getElementById('bi-'+p);
+  if(nb) nb.classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function getCurPg(){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++){if(pages[i].classList.contains('show')) return pages[i].id.replace('page-','');}
+  return 'home';
+}
+
+// ── CATEGORIES ─────────────────────────────────────────
+function renderCats(all){
+  var grid=document.getElementById('catGrid');
+  if(!grid) return;
+  var data=all?CATS:CATS.slice(0,12);
+  var html='';
+  for(var i=0;i<data.length;i++){
+    var c=data[i];
+    html+='<div class="cat-card" onclick="catSearch(''+c.nm.replace(/'/g,"\'")+'')"><div class="cat-ic" style="background:var(--p3)">'+CAT_ICONS[i]+'</div><div class="cat-nm">'+c.nm+'</div><div class="cat-ct">'+c.ct+' workers</div></div>';
+  }
+  grid.innerHTML=html;
+}
+
+function toggleCats(){
+  showAllCats=!showAllCats;
+  renderCats(showAllCats);
+  var btn=document.getElementById('catToggle');
+  if(btn) btn.textContent=showAllCats?'Show less':'See all';
+}
+
+// ── TOP WORKERS ────────────────────────────────────────
+function renderTopW(){
+  var wrap=document.getElementById('topWorkers');
+  if(!wrap) return;
+  var html='';
+  for(var i=0;i<WORKERS.length;i++){
+    var w=WORKERS[i];
+    html+='<div class="wc" onclick="openProf('+w.id+')"><div class="wc-av">👤<div class="wc-dot"></div></div><div class="wc-name">'+w.nm+'</div><div class="wc-skill">'+w.sk+'</div><div class="wc-loc">'+w.loc.split(',')[0]+'</div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="font-size:11px;color:var(--amber)">★ '+w.rt+'</span><span style="font-size:12px;font-weight:700;color:var(--green)">₹'+w.rate+'</span></div></div>';
+  }
+  wrap.innerHTML=html;
+}
+
+// ── SEARCH ─────────────────────────────────────────────
+function renderSpCats(){
+  var wrap=document.getElementById('spCats');
+  if(!wrap) return;
+  var all=['All'];
+  for(var i=0;i<CATS.length&&i<15;i++) all.push(CATS[i].nm);
+  var html='';
+  for(var j=0;j<all.length;j++){
+    html+='<button class="sp-cat'+(all[j]==='All'?' on':'')+'" onclick="setSC(this,''+all[j].replace(/'/g,"\'")+'')">'+all[j]+'</button>';
+  }
+  wrap.innerHTML=html;
+}
+
+function setSC(el,cat){
+  curCat=cat;
+  var btns=document.querySelectorAll('.sp-cat');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('on');
+  el.classList.add('on');
+  filterW();
+}
+
+function setSort(el,s){
+  sortMode=s;
+  var chips=document.querySelectorAll('.sort-chip');
+  for(var i=0;i<chips.length;i++) chips[i].classList.remove('on');
+  el.classList.add('on');
+  filterW();
+}
+
+function filterW(){
+  var qEl=document.getElementById('spQ');
+  var q=qEl?(qEl.value||'').toLowerCase():'';
+  var res=[];
+  for(var i=0;i<WORKERS.length;i++){
+    var w=WORKERS[i];
+    var mc=curCat==='All'||w.cat===curCat;
+    var mq=!q||w.nm.toLowerCase().indexOf(q)>-1||w.sk.toLowerCase().indexOf(q)>-1||w.loc.toLowerCase().indexOf(q)>-1;
+    var ml=!selCity||w.loc.toLowerCase().indexOf(selCity.toLowerCase())>-1;
+    if(mc&&mq&&ml) res.push(w);
+  }
+  res.sort(function(a,b){
+    if(sortMode==='rating') return b.rt-a.rt;
+    if(sortMode==='low') return a.rate-b.rate;
+    if(sortMode==='high') return b.rate-a.rate;
+    if(sortMode==='jobs') return b.jb-a.jb;
+    return parseFloat(a.dist)-parseFloat(b.dist);
+  });
+  renderW(res);
+}
+
+function renderW(ws){
+  var rc=document.getElementById('spRc');
+  var list=document.getElementById('wList');
+  if(rc) rc.textContent=ws.length+' worker'+(ws.length!==1?'s':'')+' found'+(selCity?' in '+selCity:'');
+  if(!ws.length){if(list) list.innerHTML='<div style="text-align:center;padding:50px 20px"><div style="font-size:40px;margin-bottom:12px">😔</div><div style="font-size:15px;font-weight:600;color:var(--text2)">No workers found</div><div style="font-size:13px;color:var(--text3);margin-top:5px">Try a different category</div></div>';return;}
+  var html='';
+  for(var i=0;i<ws.length;i++){
+    var w=ws[i];
+    var badge=i===0?'<span class="badge b-top">⭐ Top</span>':w.rt===5.0?'<span class="badge b-new">★5.0</span>':'';
+    html+='<div class="wl" onclick="openProf('+w.id+')"><div class="wl-av">👤'+(i<4?'<div class="wl-online"></div>':'')+'</div><div class="wl-info"><div class="wl-top"><div class="wl-name">'+w.nm+' '+badge+'</div><div class="wl-rate-txt">₹'+w.rate+'/day</div></div><div class="wl-skill">'+w.sk+'</div><div class="wl-loc">📍 '+w.loc+' · '+w.dist+'</div><div class="wl-bot"><span style="font-size:12px;color:var(--amber)">★ '+w.rt+' <span style="color:var(--text3)">('+w.jb+' jobs)</span></span><span style="font-size:11px;color:var(--green);font-weight:600">'+w.ex+' exp</span></div></div></div>';
+  }
+  if(list) list.innerHTML=html;
+}
+
+function doSearch(){
+  var q=(document.getElementById('homeQ')||{}).value||'';
+  var area=(document.getElementById('homeArea')||{}).value||'';
+  var spQ=document.getElementById('spQ');
+  if(spQ) spQ.value=q;
+  if(area){selCity=area;var sl=document.getElementById('spLocTxt');if(sl) sl.textContent=area;}
+  curCat='All';
+  go('search');
+  setTimeout(function(){renderSpCats();filterW();},60);
+}
+
+function catSearch(cat){
+  curCat=cat;
+  var spQ=document.getElementById('spQ');
+  if(spQ) spQ.value='';
+  go('search');
+  setTimeout(function(){
+    var btns=document.querySelectorAll('.sp-cat');
+    for(var i=0;i<btns.length;i++) btns[i].classList.toggle('on',btns[i].textContent===cat);
+    filterW();
+  },60);
+}
+
+// ── PROFILE ────────────────────────────────────────────
+function openProf(id){
+  var w=null;
+  for(var i=0;i<WORKERS.length;i++){if(WORKERS[i].id===id){w=WORKERS[i];break;}}
+  if(!w) return;
+  activeWorker=w;
+  prevPg=getCurPg();
+  var g=function(eid){return document.getElementById(eid);};
+  if(g('pNm')) g('pNm').textContent=w.nm;
+  if(g('pSk')) g('pSk').textContent=w.sk;
+  if(g('pLc')) g('pLc').textContent='📍 '+w.loc;
+  if(g('pRt')) g('pRt').textContent=w.rt+'★';
+  if(g('pJb')) g('pJb').textContent=w.jb+'+';
+  if(g('pEx')) g('pEx').textContent=w.ex;
+  if(g('pRate')) g('pRate').textContent='₹'+w.rate;
+  if(g('pAb')) g('pAb').textContent=w.ab;
+  if(g('pSks')){var sh='';for(var j=0;j<w.sk2.length;j++) sh+='<span class="stag">'+w.sk2[j]+'</span>';g('pSks').innerHTML=sh;}
+  var days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  if(g('pAvail')){var ah='';for(var k=0;k<days.length;k++) ah+='<div class="avd"><div class="avd-l">'+days[k]+'</div><div class="avd-dot '+(w.av[k]?'av-y':'av-n')+'">'+(w.av[k]?'✓':'✗')+'</div></div>';g('pAvail').innerHTML=ah;}
+  if(g('pRevs')){var rh='';for(var r=0;r<w.revs.length;r++){var rv=w.revs[r];var stars='';for(var s=0;s<rv.rt;s++) stars+='★';rh+='<div class="rev-item"><div style="font-size:13px;font-weight:600;color:var(--text)">'+rv.nm+'</div><div style="font-size:11px;color:var(--text3)"><span style="color:var(--amber)">'+stars+'</span> · '+rv.dt+'</div><div style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:5px">'+rv.tx+'</div></div>';}g('pRevs').innerHTML=rh;}
+  go('profile');
+}
+
+// ── BOOKING ────────────────────────────────────────────
+function bookNow(){
+  if(!activeWorker){showToast('Pehle koi worker select karo!');go('search');return;}
+  if(!isLoggedIn){
+    authAction='book';
+    var at=document.getElementById('authTtl'),as=document.getElementById('authSub');
+    if(at) at.textContent='Sign in to Book';
+    if(as) as.textContent='Login karo aur worker book karo';
+    document.getElementById('authModal').classList.add('show');
+    return;
+  }
+  var w=activeWorker;
+  var wn=document.getElementById('bkWName'),ws=document.getElementById('bkWSkill'),wr=document.getElementById('bkWRate');
+  if(wn) wn.textContent=w.nm;
+  if(ws) ws.textContent=w.sk;
+  if(wr) wr.textContent='₹'+w.rate;
+  document.getElementById('bookDate').value=new Date().toISOString().split('T')[0];
+  document.getElementById('bookAddr').value='';
+  document.getElementById('bookNote').value='';
+  var slots=document.querySelectorAll('#bookModal .slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.toggle('on',i===0);
+  document.getElementById('bookModal').classList.add('show');
+}
+
+function closeBook(){document.getElementById('bookModal').classList.remove('show');}
+
+function selSlot(el){
+  var slots=document.querySelectorAll('#bookModal .slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.remove('on');
+  el.classList.add('on');
+}
+
+function selRSlot(el){
+  var slots=document.querySelectorAll('#reschedSlots .slot');
+  for(var i=0;i<slots.length;i++) slots[i].classList.remove('on');
+  el.classList.add('on');
+}
+
+function confirmBook(){
+  var date=document.getElementById('bookDate').value;
+  var addr=document.getElementById('bookAddr').value.trim();
+  var note=document.getElementById('bookNote').value.trim();
+  if(!date){showToast('Date select karo!');return;}
+  if(!addr){showToast('Address enter karo!');return;}
+  var slotEl=document.querySelector('#bookModal .slot.on');
+  var slot=slotEl?slotEl.textContent.split('\n')[0].trim():'Morning';
+  var w=activeWorker;
+  var booking={wId:w.id,wName:w.nm,wSkill:w.sk,rate:w.rate,date:date,slot:slot,addr:addr,note:note,status:'pending',createdAt:new Date().toISOString()};
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  bookings.unshift(booking);
+  localStorage.setItem('kg_bookings',JSON.stringify(bookings));
+  if(window.fbSaveBooking){var uid=window.currentUser?window.currentUser.uid:'guest';window.fbSaveBooking(booking,uid);}
+  closeBook();
+  showToast('✅ Booking confirmed! Worker will contact you soon.');
+  renderBookings();
+}
+
+// ── RESCHEDULE & CANCEL ────────────────────────────────
+function openReschedule(idx){
+  reschedIdx=idx;
+  document.getElementById('reschedDate').value=new Date().toISOString().split('T')[0];
+  document.getElementById('reschedModal').classList.add('show');
+}
+
+function confirmReschedule(){
+  var newDate=document.getElementById('reschedDate').value;
+  if(!newDate){showToast('Nayi date select karo!');return;}
+  var slotEl=document.querySelector('#reschedSlots .slot.on');
+  var newSlot=slotEl?slotEl.textContent.trim():'Morning';
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  if(reschedIdx>=0&&bookings[reschedIdx]){bookings[reschedIdx].date=newDate;bookings[reschedIdx].slot=newSlot;bookings[reschedIdx].status='pending';localStorage.setItem('kg_bookings',JSON.stringify(bookings));}
+  document.getElementById('reschedModal').classList.remove('show');
+  renderBookings();
+  showToast('Booking rescheduled!');
+}
+
+function openCancel(idx){
+  cancelIdx=idx;
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  var b=bookings[idx];
+  var ci=document.getElementById('cancelInfo');
+  if(ci&&b) ci.textContent=b.wName+' — '+b.wSkill;
+  document.getElementById('cancelModal').classList.add('show');
+}
+
+function confirmCancel(){
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  if(cancelIdx>=0&&bookings[cancelIdx]){bookings[cancelIdx].status='cancelled';localStorage.setItem('kg_bookings',JSON.stringify(bookings));}
+  document.getElementById('cancelModal').classList.remove('show');
+  renderBookings();
+  showToast('Booking cancelled.');
+}
+
+// ── REGISTER ───────────────────────────────────────────
+var regType='worker';
+function setRT(t){
+  regType=t;
+  document.getElementById('tcW').classList.toggle('on',t==='worker');
+  document.getElementById('tcC').classList.toggle('on',t==='customer');
+  document.getElementById('wFields').style.display=t==='worker'?'block':'none';
+}
+
+function populateCat(){
+  var sel=document.getElementById('regCat');
+  if(!sel) return;
+  for(var i=0;i<CATS.length;i++) sel.innerHTML+='<option value="'+CATS[i].nm+'">'+CATS[i].nm+'</option>';
+}
+
+function loadSubCat(){
+  var nm=(document.getElementById('regCat')||{}).value||'';
+  var cat=null;
+  for(var i=0;i<CATS.length;i++){if(CATS[i].nm===nm){cat=CATS[i];break;}}
+  var wrap=document.getElementById('regSkills');
+  if(!wrap) return;
+  if(!cat){wrap.innerHTML='<div style="font-size:12px;color:var(--text3)">Select category first</div>';return;}
+  var h='';
+  for(var j=0;j<cat.sk.length;j++) h+='<button class="chip" onclick="this.classList.toggle('on')">'+cat.sk[j]+'</button>';
+  wrap.innerHTML=h;
+}
+
+function submitReg(){
+  if(!isLoggedIn){
+    authAction='register';
+    var at=document.getElementById('authTtl'),as=document.getElementById('authSub');
+    if(at) at.textContent='Pehle Login Karo';
+    if(as) as.textContent='Profile save karne ke liye login zaroori hai';
+    document.getElementById('authModal').classList.add('show');
+    return;
+  }
+  var name=(document.getElementById('regName')||{}).value||'';
+  var phone=(document.getElementById('regPhone')||{}).value||'';
+  var city=(document.getElementById('regCity')||{}).value||'';
+  if(!name.trim()){showToast('Name enter karo!');return;}
+  if(!phone.trim()||phone.length<10){showToast('Valid phone enter karo!');return;}
+  if(!city.trim()){showToast('City enter karo!');return;}
+  if(regType==='worker'){
+    var cat=(document.getElementById('regCat')||{}).value||'';
+    var rate=(document.getElementById('regRate')||{}).value||'';
+    if(!cat){showToast('Category select karo!');return;}
+    if(!rate){showToast('Rate enter karo!');return;}
+    localStorage.setItem('kg_isWorker','1');
+    localStorage.setItem('kg_workerSkill',cat);
+    // Save to Firestore
+    if(window.fbSaveWorker){
+      var ab=(document.getElementById('regAbout')||{}).value||'';
+      window.fbSaveWorker({name:name.trim(),phone:phone.trim(),city:city.trim(),category:cat,rate:parseInt(rate),about:ab,uid:window.currentUser?window.currentUser.uid:''});
+    }
+  }
+  showToast('✅ Profile saved! Ab log aapko hire kar sakte hain.');
+  setTimeout(function(){go('account');loadDash();},1500);
+}
+
+// ── DASHBOARD ──────────────────────────────────────────
+function loadDash(){
+  var notLogged=document.getElementById('dashNotLogged');
+  var logged=document.getElementById('dashLogged');
+  if(!isLoggedIn){if(notLogged) notLogged.style.display='block';if(logged) logged.style.display='none';return;}
+  if(notLogged) notLogged.style.display='none';
+  if(logged) logged.style.display='block';
+  var user=window.currentUser||{};
+  var name=user.displayName||localStorage.getItem('kg_userName')||'User';
+  var av=document.getElementById('dashAv');
+  if(av){
+    var img=localStorage.getItem('kg_profileImg');
+    if(img){av.style.backgroundImage='url('+img+')';av.style.backgroundSize='cover';av.style.backgroundPosition='center';av.textContent='';}
+    else{av.style.backgroundImage='';av.textContent=name.charAt(0).toUpperCase();}
+  }
+  var dn=document.getElementById('dashName');if(dn) dn.textContent=name;
+  var dr=document.getElementById('dashRole');if(dr) dr.textContent=localStorage.getItem('kg_isWorker')?'Worker':'Customer';
+  renderBookings();
+}
+
+function renderBookings(){
+  var el=document.getElementById('dashBkList');
+  if(!el) return;
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  if(!bookings.length){el.innerHTML='<div style="padding:24px;text-align:center;color:var(--text3);font-size:13px">Koi booking nahi abhi tak</div>';var bc=document.getElementById('dashBkCnt');if(bc) bc.textContent='0';return;}
+  var sc={pending:'s-pending',confirmed:'s-confirmed',done:'s-done',cancelled:'s-cancelled'};
+  var sl={pending:'Pending',confirmed:'Confirmed',done:'Done',cancelled:'Cancelled'};
+  var html='';
+  for(var i=0;i<bookings.length;i++){
+    var b=bookings[i];
+    var canAct=b.status!=='cancelled'&&b.status!=='done';
+    var d=new Date(b.date);
+    var dateStr=d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+    html+='<div style="padding:12px 16px;border-bottom:1px solid var(--border)">'
+      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px"><div><div style="font-size:14px;font-weight:700;color:var(--text)">'+b.wName+'</div><div style="font-size:12px;color:var(--p);font-weight:600">'+b.wSkill+'</div></div>'
+      +'<span class="status-badge '+(sc[b.status]||'s-pending')+'">'+(sl[b.status]||'Pending')+'</span></div>'
+      +'<div style="font-size:12px;color:var(--text3);margin-bottom:8px">📅 '+dateStr+' · '+(b.slot||'')+' · ₹'+b.rate+'/day</div>'
+      +(canAct?'<div style="display:flex;gap:8px"><button onclick="openReschedule('+i+')" style="flex:1;background:var(--p3);border:1px solid rgba(19,71,204,.2);color:var(--p);font-size:12px;font-weight:700;padding:8px;border-radius:8px;cursor:pointer;font-family:inherit">📅 Reschedule</button><button onclick="openCancel('+i+')" style="flex:1;background:#FEF2F2;border:1px solid #FECACA;color:var(--red);font-size:12px;font-weight:700;padding:8px;border-radius:8px;cursor:pointer;font-family:inherit">✕ Cancel</button></div>':'')
+      +(b.status==='done'&&!b.reviewed?'<button onclick="openReview('+i+')" style="width:100%;background:var(--amber-bg);border:1px solid rgba(180,83,9,.2);color:var(--amber);font-size:12px;font-weight:700;padding:8px;border-radius:8px;cursor:pointer;margin-top:8px;font-family:inherit">⭐ Rate & Review</button>':'')
+      +'</div>';
+  }
+  el.innerHTML=html;
+  var bc=document.getElementById('dashBkCnt');if(bc) bc.textContent=bookings.length;
+  var done=bookings.filter(function(b){return b.status==='done';});
+  var dd=document.getElementById('dashDone');if(dd) dd.textContent=done.length;
+}
+
+function uploadProfileImg(){
+  var inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+  inp.onchange=function(e){
+    var file=e.target.files[0];if(!file) return;
+    if(file.size>2*1024*1024){showToast('Image 2MB se chhoti ho!');return;}
+    var reader=new FileReader();
+    reader.onload=function(ev){localStorage.setItem('kg_profileImg',ev.target.result);loadDash();showToast('Profile photo updated!');};
+    reader.readAsDataURL(file);
+  };
+  inp.click();
+}
+
+function doLogout(){
+  isLoggedIn=false;window.isLoggedIn=false;window.currentUser=null;
+  localStorage.removeItem('kg_loggedIn');
+  if(window.fbAuth&&window.fbSignOut) window.fbSignOut(window.fbAuth);
+  loadDash();showToast('Logged out!');go('home');
+}
+
+function deleteAccount(){
+  localStorage.clear();isLoggedIn=false;window.currentUser=null;
+  if(window.fbAuth&&window.fbSignOut) window.fbSignOut(window.fbAuth);
+  document.getElementById('deleteModal').classList.remove('show');
+  showToast('Account deleted!');go('home');
+}
+
+// ── REVIEW ─────────────────────────────────────────────
+function openReview(idx){
+  reviewIdx=idx;selectedRating=0;updateStars(0);
+  var rt=document.getElementById('reviewTxt'),rn=document.getElementById('reviewerNm');
+  if(rt) rt.value='';
+  if(rn) rn.value=localStorage.getItem('kg_userName')||'';
+  var rl=document.getElementById('ratingLbl');if(rl) rl.textContent='';
+  document.getElementById('reviewModal').classList.add('show');
+}
+
+function setRating(val){
+  selectedRating=val;updateStars(val);
+  var labels={1:'Bahut Bura 😞',2:'Theek Nahi 😐',3:'Theek Tha 🙂',4:'Acha Tha 😊',5:'Bahut Acha! 🌟'};
+  var lbl=document.getElementById('ratingLbl');if(lbl) lbl.textContent=labels[val]||'';
+}
+
+function updateStars(val){
+  var btns=document.querySelectorAll('#starRow .star-btn');
+  for(var i=0;i<btns.length;i++){btns[i].textContent=i<val?'★':'☆';btns[i].style.color=i<val?'#f59e0b':'#d1d5db';}
+}
+
+function submitReview(){
+  if(!selectedRating){showToast('Star select karo!');return;}
+  var bookings=JSON.parse(localStorage.getItem('kg_bookings')||'[]');
+  if(reviewIdx>=0&&bookings[reviewIdx]){bookings[reviewIdx].reviewed=true;localStorage.setItem('kg_bookings',JSON.stringify(bookings));}
+  document.getElementById('reviewModal').classList.remove('show');
+  renderBookings();showToast('Review submit ho gaya! 🌟');
+}
+
+// ── CHAT ───────────────────────────────────────────────
+function openChat(){
+  if(!activeWorker){showToast('Pehle worker select karo!');return;}
+  if(!isLoggedIn){requireAuth('chat');return;}
+  var w=activeWorker;
+  var cn=document.getElementById('chatWName');if(cn) cn.textContent=w.nm;
+  chatMsgs=JSON.parse(localStorage.getItem('chat_'+w.id)||'[]');
+  if(!chatMsgs.length){chatMsgs.push({from:'worker',text:'Namaste! Main '+w.nm+' hoon. Kya madad kar sakta hoon?',time:new Date().toISOString()});localStorage.setItem('chat_'+w.id,JSON.stringify(chatMsgs));}
+  renderChat();
+  document.getElementById('chatModal').classList.add('show');
+  setTimeout(scrollChat,100);
+}
+
+function closeChat(){document.getElementById('chatModal').classList.remove('show');}
+
+function sendMsg(){
+  var inp=document.getElementById('chatInp');
+  if(!inp) return;
+  var msg=inp.value.trim();
+  if(!msg) return;
+  inp.value='';
+  chatMsgs.push({from:'user',text:msg,time:new Date().toISOString()});
+  if(activeWorker) localStorage.setItem('chat_'+activeWorker.id,JSON.stringify(chatMsgs));
+  renderChat();scrollChat();
+  setTimeout(function(){
+    var replies=['Theek hai!','Bilkul kar sakta hoon!','Kab aana hai?','Date batao!','₹'+(activeWorker?activeWorker.rate:500)+'/day hai mera rate.'];
+    chatMsgs.push({from:'worker',text:replies[Math.floor(Math.random()*replies.length)],time:new Date().toISOString()});
+    if(activeWorker) localStorage.setItem('chat_'+activeWorker.id,JSON.stringify(chatMsgs));
+    renderChat();scrollChat();
+  },1200);
+}
+
+function renderChat(){
+  var el=document.getElementById('chatMsgs');if(!el) return;
+  var html='';
+  for(var i=0;i<chatMsgs.length;i++){
+    var m=chatMsgs[i];var isUser=m.from==='user';
+    var d=new Date(m.time);var time=d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
+    html+='<div style="display:flex;justify-content:'+(isUser?'flex-end':'flex-start')+'"><div style="max-width:75%;background:'+(isUser?'var(--p)':'var(--white)')+';color:'+(isUser?'#fff':'var(--text)')+';border-radius:'+(isUser?'16px 16px 4px 16px':'16px 16px 16px 4px')+';padding:10px 13px;box-shadow:var(--shadow)"><div style="font-size:13px;line-height:1.5">'+m.text+'</div><div style="font-size:10px;color:'+(isUser?'rgba(255,255,255,.6)':'var(--text3)')+';margin-top:4px;text-align:right">'+time+'</div></div></div>';
+  }
+  el.innerHTML=html;
+}
+
+function scrollChat(){var el=document.getElementById('chatMsgs');if(el) el.scrollTop=el.scrollHeight;}
+
+// ── AUTH ───────────────────────────────────────────────
+function requireAuth(action){
+  if(isLoggedIn){
+    if(action==='book') bookNow();
+    else if(action==='account'){go('account');loadDash();}
+    return;
+  }
+  authAction=action;
+  document.getElementById('authModal').classList.add('show');
+}
+
+function closeAuth(){document.getElementById('authModal').classList.remove('show');}
+function showPhoneModal(){document.getElementById('authModal').classList.remove('show');document.getElementById('phoneModal').classList.add('show');}
+
+function googleLogin(){
+  if(!window.fbGoogleLogin){showToast('Firebase loading... ek second wait karo');setTimeout(googleLogin,2000);return;}
+  window.fbGoogleLogin();
+}
+
+function sendOTP(){
+  var phone=(document.getElementById('phoneInput')||{}).value||'';
+  if(!phone||phone.length<10){showToast('Valid phone enter karo');return;}
+  if(!window.fbSendOTP){showToast('Firebase loading...');return;}
+  window.fbSendOTP('+91'+phone);
+}
+
+function verifyOTP(){
+  var otp=(document.getElementById('otpInput')||{}).value||'';
+  if(!otp||otp.toString().length<6){showToast('6-digit OTP enter karo');return;}
+  if(!window.fbVerifyOTP){showToast('Firebase loading...');return;}
+  window.fbVerifyOTP(otp.toString());
+}
+
+function onLoginSuccess(user){
+  isLoggedIn=true;window.isLoggedIn=true;window.currentUser=user;
+  localStorage.setItem('kg_loggedIn','1');
+  localStorage.setItem('kg_userName',user.displayName||user.phoneNumber||'User');
+  if(user.uid) localStorage.setItem('kg_uid',user.uid);
+  document.getElementById('authModal').classList.remove('show');
+  document.getElementById('phoneModal').classList.remove('show');
+  showToast('Login ho gaya! Welcome '+(user.displayName||'User'));
+  if(authAction==='book'){authAction='';bookNow();}
+  else if(authAction==='register'){authAction='';submitReg();}
+  else if(authAction==='account'){authAction='';go('account');loadDash();}
+  else loadDash();
+}
+
+// ── LOCATION ───────────────────────────────────────────
+var CITIES=['Delhi','Mumbai','Bangalore','Hyderabad','Chennai','Pune','Kolkata','Jaipur','Ahmedabad','Lucknow','Surat','Bhopal','Nagpur','Indore','Patna','Chandigarh','Agra','Varanasi'];
+
+function openLoc(){
+  var lq=document.getElementById('locQ');if(lq) lq.value='';
+  renderLoc('');
+  document.getElementById('locModal').classList.add('show');
+}
+
+function renderLoc(q){
+  var el=document.getElementById('locPop');if(!el) return;
+  var f=q.toLowerCase();var html='';
+  for(var i=0;i<CITIES.length;i++){
+    if(!f||CITIES[i].toLowerCase().indexOf(f)>-1)
+      html+='<span class="loc-chip'+(CITIES[i]===selCity?' on':'')+'" onclick="setLoc(''+CITIES[i]+'')">'+CITIES[i]+'</span>';
+  }
+  el.innerHTML=html||'<div style="color:var(--text3);font-size:13px;padding:10px">No city found</div>';
+}
+
+function setLoc(c){
+  selCity=c;
+  var nL=document.getElementById('navLoc'),sL=document.getElementById('spLocTxt');
+  if(nL) nL.textContent=c;if(sL) sL.textContent=c;
+  document.getElementById('locModal').classList.remove('show');
+  filterW();showToast('📍 '+c);
+}
+
+function detectLoc(){
+  if(!navigator.geolocation){showToast('GPS not supported');return;}
+  navigator.geolocation.getCurrentPosition(function(){setLoc('Delhi');},function(){setLoc('Delhi');});
+}
+
+// ── TOAST ──────────────────────────────────────────────
+var toastTimer;
+function showToast(m){
+  clearTimeout(toastTimer);
+  var t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  toastTimer=setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+// ── PWA ────────────────────────────────────────────────
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;setTimeout(function(){var b=document.getElementById('pwaBanner');if(b) b.style.display='block';},3000);});
+function installPWA(){if(!deferredPrompt){showToast('Browser menu → "Add to Home Screen"');return;}deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted') showToast('KaariGar install ho gaya! 🎉');var b=document.getElementById('pwaBanner');if(b) b.style.display='none';deferredPrompt=null;});}
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});}
+
+// ── INIT ───────────────────────────────────────────────
+renderCats(false);
+renderTopW();
+renderSpCats();
+filterW();
+populateCat();
+document.getElementById('bookDate').value=new Date().toISOString().split('T')[0];
+renderLoc('');
+
+var savedLogin=localStorage.getItem('kg_loggedIn');
+if(savedLogin){isLoggedIn=true;window.isLoggedIn=true;window.currentUser={displayName:localStorage.getItem('kg_userName')||'User',uid:localStorage.getItem('kg_uid')||''};}
+
+setLang(localStorage.getItem('kg_lang')||'en');
+</script>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getFirestore,collection,addDoc,getDocs,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getAuth,signInWithPopup,GoogleAuthProvider,RecaptchaVerifier,signInWithPhoneNumber,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+var app=initializeApp({apiKey:"AIzaSyBHJFh726v2MY980CkF3kz91hJFGDm2jf0",authDomain:"kaarigar-app-ffc5a.firebaseapp.com",projectId:"kaarigar-app-ffc5a",storageBucket:"kaarigar-app-ffc5a.firebasestorage.app",messagingSenderId:"619530411754",appId:"1:619530411754:web:cc3ced49a03cf19bae8193"});
+var db=getFirestore(app),auth=getAuth(app);
+window.fbAuth=auth;window.fbSignOut=signOut;
+
+onAuthStateChanged(auth,function(user){
+  if(user){
+    window.currentUser=user;
+    window.isLoggedIn=true;
+    if(typeof isLoggedIn!=='undefined') isLoggedIn=true;
+    localStorage.setItem('kg_loggedIn','1');
+    localStorage.setItem('kg_userName',user.displayName||user.phoneNumber||'User');
+    if(user.uid) localStorage.setItem('kg_uid',user.uid);
+    if(document.getElementById('page-account').classList.contains('show')) loadDash();
+  } else {
+    window.currentUser=null;
+    window.isLoggedIn=false;
+    if(typeof isLoggedIn!=='undefined') isLoggedIn=false;
+    localStorage.removeItem('kg_loggedIn');
+  }
+});
+
+window.fbGoogleLogin=async function(){
+  try{var r=await signInWithPopup(auth,new GoogleAuthProvider());onLoginSuccess(r.user);}
+  catch(e){if(e.code!=='auth/popup-closed-by-user') showToast('Login failed. Try again!');}
+};
+
+window.fbSendOTP=async function(phone){
+  try{var rc=new RecaptchaVerifier(auth,'recaptcha-container',{size:'invisible'});var c=await signInWithPhoneNumber(auth,phone,rc);window.fbOTPConfirm=c;document.getElementById('phoneStep').style.display='none';document.getElementById('otpStep').style.display='block';showToast('OTP sent!');}
+  catch(e){showToast('OTP failed: '+(e.message||'Try again'));}
+};
+
+window.fbVerifyOTP=async function(otp){
+  try{if(!window.fbOTPConfirm){showToast('Pehle OTP bhejo!');return;}var r=await window.fbOTPConfirm.confirm(otp);onLoginSuccess(r.user);}
+  catch(e){showToast('Wrong OTP!');}
+};
+
+window.fbSaveBooking=async function(b,uid){
+  try{await addDoc(collection(db,'bookings'),{workerName:b.wName,workerSkill:b.wSkill,rate:b.rate,date:b.date,slot:b.slot,address:b.addr,note:b.note,status:'pending',userId:uid,createdAt:new Date()});}
+  catch(e){console.log('Booking error:',e.message);}
+};
+
+window.fbSaveWorker=async function(d){
+  try{await addDoc(collection(db,'workers'),Object.assign({},d,{createdAt:new Date(),status:'active',rating:0,totalJobs:0}));}
+  catch(e){console.log('Worker save error:',e.message);}
+};
+
+try{
+  getDocs(query(collection(db,'workers'),orderBy('createdAt','desc'))).then(function(snap){
+    var fw=[];
+    snap.forEach(function(doc){var d=doc.data();fw.push({id:doc.id,nm:d.name||'Worker',sk:d.category||'Service',cat:d.category||'Other',loc:(d.area?d.area+', ':'')+( d.city||'India'),rt:d.rating||0,jb:d.totalJobs||0,ex:d.experience||'Fresher',rate:d.rate||500,dist:'—',ab:d.about||'Experienced worker.',sk2:d.skills||[],av:[1,1,1,1,1,1,0],revs:[],isReal:true});});
+    if(fw.length>0){var demo=WORKERS.filter(function(w){return!w.isReal;});WORKERS=fw.concat(demo);renderTopW();filterW();}
+  }).catch(function(){});
+}catch(e){}
+</script>
+</body>
+</html>
